@@ -10,15 +10,21 @@ gcd(a, b) divides b & bx
 ax + bx divisible by gcd(a, b) which is c  
 
 **Extended Euclidean Algorithm**  
-ax + by = gcd(a, b)   
+ax + by = gcd(a, b)   -------- (i)  
+We know from Euclidean Algorithm,  
 gcd(a, b) = gcd(b, a%b)  
-gcd(b, a%b) = bx<sub>1</sub> + (a%b)y<sub>1</sub>  
+from (i) we get,  
+gcd(b, a%b) = bx<sub>1</sub> + (a%b)y<sub>1</sub>  -------- (ii)  
+We can write,  
 a%b = a - (a/b) *b 
 
 From the above equations we get,  
-
+from (i) & (ii)  
 ax+by = bx<sub>1</sub> + (a%b)y<sub>1</sub>  
+replacing the value of (a%b)   
 ax + by = bx<sub>1</sub> + (a - (a/b) * b)y<sub>1</sub>  
+ax + by = bx<sub>1</sub> + ay<sub>1</sub> - (a/b) * by<sub>1</sub>  
+ax + by = ay<sub>1</sub> + bx<sub>1</sub>  - (a/b) * by<sub>1</sub>  
 ax + by = ay<sub>1</sub> + b(x<sub>1</sub> - (a/b) * y<sub>1</sub>)  
 
 Comparing the coefficients of a and b we get,  
