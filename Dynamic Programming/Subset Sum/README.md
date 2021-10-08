@@ -1,4 +1,5 @@
 
+
 # *Subset Sum*
 
 **Problem Statement:** Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum.   
@@ -111,3 +112,44 @@ bool isSubsetSum(int set[], int n, int sum) {
     return subset[n][sum];
 }
 ````  
+
+---  
+---  
+# *Count of subsets with given sum*  
+ Given an array **arr[]** of length **N** and an integer **X**, the task is to find the number of subsets with a sum equal to **X**.  
+ **Input:**  arr[] = {1, 2, 3, 3}, X = 6  
+**Output:**  3  
+All the possible subsets are {1, 2, 3},  
+{1, 2, 3} and {3, 3}
+
+**Input:**  arr[] = {1, 1, 1, 1}, X = 1  
+**Output:**  4  
+
+It's a variation of *Subset Sum* problem. *Subset Sum* states that we have to find a subset with a given sum. Here, *Count of subsets with given sum*, we just have to count such subsets. There's a slight change. We have to store the count in an `int` array and we have to add the number of possible subsets.  
+
+**Tabulation:** Bottom Up  
+````cpp
+int countSubsetSum(int set[], int n, int sum) {
+    int subset[n + 1][sum + 1];
+    // If sum is 0, then answer is 1
+    for (int i = 0; i <= n; i++) {
+        subset[i][0] = 1;
+    }
+    // If sum is not 0 and set is empty,
+    // then answer is 0
+    for (int i = 1; i <= sum; i++) {
+        subset[0][i] = 0;
+    }
+    // Fill the subset table in bottom up manner
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= sum; j++) {
+            if (set[i-1] <= j) {
+                subset[i][j] = subset[i - 1][j] + subset[i - 1][j - set[i - 1]];
+            }else {
+                subset[i][j] = subset[i - 1][j];
+            }
+        }
+    }
+    return subset[n][sum];
+}
+````
