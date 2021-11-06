@@ -1,5 +1,6 @@
 
 
+
 # *Minimum Subset Sum Difference*
 
 **Problem Statement:** Given a set of integers, the task is to divide it into two sets S1 and S2 such that the absolute difference between their sums is minimum.  
@@ -71,3 +72,36 @@ int minimumSubsetSumDiffrence(int set[], int n) {
     return minDiff;
 }
 ````  
+
+**Space Optimized**  
+````cpp
+int minimumSubsetSumDiffrence(int set[], int n) {
+    int sum = 0;
+    for(int i=0; i<n; i++) {
+        sum += set[i];
+    }
+	bool subset[sum+1] = {0};
+	// Initializing with 1 as sum 0 is always possible
+    subset[0] = 1;
+    for(int i=0; i<n; i++) {
+        for(int j=sum; j>=set[i]; j--) {
+			// Method 1
+            subset[j] = subset[j] || subset[j-set[i]];
+			// Method 2
+			if (subset[j - set[i]] == 1) {
+                subset[j] = 1;
+			}
+        }
+    }
+    int minDiff = INT_MAX;
+    // Find the largest j such that subset[j]
+    // is true where j loops from sum/2 to 0
+    for (int j = sum / 2; j >= 0; j--) {
+        if (subset[j] == true) {
+            minDiff = sum - 2 * j;
+            break;
+        }
+    }
+    return minDiff;
+}
+````
