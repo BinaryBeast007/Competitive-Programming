@@ -1,4 +1,5 @@
 
+
 # ***Equal Sum Partition***
 
 **Problem Statement:** Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum.      
@@ -109,3 +110,43 @@ bool findPartition(int arr[], int n) {
 	return isSubsetSum(arr, n, sum / 2);
 }
 ````  
+
+**Space Optimized**  
+ **Time Complexity:**  O(N\*sum).  
+**Auxiliary Space:**  O(sum).  
+````cpp
+bool isSubsetSum(int set[], int n, int sum) {
+	bool subset[sum+1] = {0};
+	// Initializing with 1 as sum 0 is always possible
+    subset[0] = 1;
+    for(int i=0; i<n; i++) {
+        for(int j=sum; j>=set[i]; j--) {
+			// Method 1
+            subset[j] = subset[j] || subset[j-set[i]];
+			// Method 2
+			if (subset[j - set[i]] == 1) {
+                subset[j] = 1;
+			}
+        }
+    }
+    return subset[sum];
+}
+
+// Returns true if arr[] can be partitioned in two
+// subsets of equal sum, otherwise false
+bool findPartition(int arr[], int n) {
+	// Calculate sum of the elements in array
+	int sum = 0;
+	for (int i = 0; i < n; i++) {
+		sum += arr[i];
+    }
+	// If sum is odd, there cannot be two subsets
+	// with equal sum
+	if (sum % 2 != 0) {
+		return false;
+    }
+	// Find if there is subset with sum equal to
+	// half of total sum
+	return isSubsetSum(arr, n, sum / 2);
+}
+````
