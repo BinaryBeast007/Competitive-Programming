@@ -1,5 +1,6 @@
 
 
+
 # *Subset Sum*
 
 **Problem Statement:** Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum.   
@@ -81,7 +82,9 @@ int subsetSum(int arr[], int n, int sum) {
 ````  
 
 **Tabulation:** Bottom Up  
- 
+ **Time Complexity:**  O(N\*sum).  
+    As redundant calculations of states are avoided.  
+**Auxiliary Space:**  O(N\*sum).  
 ````cpp
 // Returns true if there is a subset of set[]
 // with sum equal to given sum
@@ -112,6 +115,29 @@ bool isSubsetSum(int set[], int n, int sum) {
     return subset[n][sum];
 }
 ````  
+
+**Space Optimized**  
+**Time Complexity:**  O(N\*sum).  
+    As redundant calculations of states are avoided.  
+**Auxiliary Space:**  O(sum).  
+````cpp
+bool isSubsetSum(int set[], int n, int sum) {
+	bool subset[sum+1] = {0};
+	// Initializing with 1 as sum 0 is always possible
+    subset[0] = 1;
+    for(int i=0; i<n; i++) {
+        for(int j=sum; j>=set[i]; j--) {
+			// Method 1
+            subset[j] = subset[j] || subset[j-set[i]];
+			// Method 2
+			if (subset[j - set[i]] == 1) {
+                subset[j] = 1;
+			}
+        }
+    }
+    return subset[sum];
+}
+````
 
 ---  
 ---  
@@ -151,5 +177,20 @@ int countSubsetSum(int set[], int n, int sum) {
         }
     }
     return subset[n][sum];
+}
+````  
+
+**Space Optimized**  
+````cpp
+int countSubsetSum(int set[], int n, int sum) {
+    int subset[sum + 1] = {0};
+    // If sum is 0, then answer is 1
+    subset[0] = 1;
+	for(int i=0; i<n; i++) {
+        for(int j=sum; j>=set[i]; j--) {
+            subset[j] = subset[j] + subset[j-set[i]];
+        }
+    }
+    return subset[sum];
 }
 ````
