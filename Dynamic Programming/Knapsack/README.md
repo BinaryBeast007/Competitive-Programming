@@ -152,8 +152,8 @@ int knapSack(int w, int wt[], int val[], int n) {
             if(i == 0 || j == 0) {
                 // row & column initialization
                 dp[i][j] = 0;
-            }else if(wt[i-1] <= w) {
-                dp[i][j] = max(val[i-1] + dp[i-1][j-wt[i-1]], dp[i-1][j]);
+            }else if(wt[i-1] <= j) {
+                dp[i][j] = max(val[i-1] + dp[i][j-wt[i-1]], dp[i-1][j]);
             }else {
                 dp[i][j] = dp[i-1][j];
             }
