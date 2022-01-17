@@ -1,4 +1,4 @@
-<h1> <p align="center"> Competitive Programming  </p> </h1>
+<h1> Competitive Programming  </h1>
 
 
 [![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square)](https://github.com/BinaryBeast007/Competitive-Programming/blob/main/CONTRIBUTING.md)
