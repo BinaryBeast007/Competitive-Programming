@@ -23,11 +23,12 @@ void revDfs(int node, vector<int> &vis, vector<int> transpose[]) {
 int main() {
     int n, m;
     cin >> n >> m;
-    vector<int> adj[n+1];
+    vector<int> adj[n + 1], transpose[n + 1];
     for(int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
+        transpose[v].push_back(u);
     }
 	stack<int> st;
 	vector<int> vis(n + 1, 0); 
@@ -36,13 +37,7 @@ int main() {
 	        dfs(i, st, vis, adj); 
 	    }
 	} 
-	vector<int> transpose[n + 1]; 
-	for(int i = 1; i <= n; i++) {
-	    vis[i] = 0; 
-	    for(auto it : adj[i]) {
-	        transpose[it].push_back(i); 
-	    }
-	}
+    fill(vis.begin(), vis.end(), 0);
 	while(!st.empty()) {
 	    int node = st.top();
 	    st.pop(); 
